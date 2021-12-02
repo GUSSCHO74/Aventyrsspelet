@@ -1,6 +1,6 @@
 import random
 
-#MÅSTE SKAPA EN LISTA FÖR ATT SPARA OCH UPPDATERA DATA KRING STATUSl
+#MÅSTE SKAPA EN LISTA FÖR ATT SPARA OCH UPPDATERA DATA KRING STATUS
 class Player():
     def __init__(self, lvl, hp, strength, inv):
         self.lvl = lvl
