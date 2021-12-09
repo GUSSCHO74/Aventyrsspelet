@@ -1,3 +1,4 @@
+from _typeshed import Self
 import random
 
 #MÅSTE SKAPA EN LISTA FÖR ATT SPARA OCH UPPDATERA DATA KRING STATUS
@@ -9,12 +10,12 @@ class Player():
         self.inv = []
 
     def print_info(self):
-        print(f"-------------------\nCurrent Level: {self.lvl}\nYour HP: {self.hp}\nStrength: {self.strength}\n-------------------""\n\n")
+        print(f"-----------------\nCurrent Level: {self.lvl}\nYour HP: {self.hp}\nStrength: {self.strength}\n-----------------")
 
 
 def door(player):
     door_type = random.choice(["Treasure", "Trap", "Monster"])
-    print(door_type)    
+    print(door_type)   
     if door_type == "Treasure":
         item_strength = random(1,10)
         print("This sword a strength of {item_strength}.")
@@ -29,29 +30,38 @@ def door(player):
                 print("You left the treasure and countinued your journey")
             else:
                 print("You need to type Y or N (Y for Yes, N for No):")
- 
-                    
-class Choice():
-    def __init__(self, options):
-        self.options = options
-
-    def print_info(self):
-        print(f"What would you like to do?\nCheck player status: {Player}")
+    elif door_type == "Trap":
+        #MÅSTE FIXA ATT FÖR VARJE TRAP TAR MAN 1 DAMAGE PÅ SITT player.hp
+    elif door_type == "Monster":
+        monster_strength = random(1,10)
+        print("The monster has a strength of {monster.strength}.")
+    
         
 def start_game():
     player = Player(1,20,4,[])
     while player.hp > 0: #checka om spelaren dött?
-        choice = input("What would you like to do?\nA: Check your stats\nB: Move onto next door\nC: Check your inventory\nYOUR CHOICE: ")
+        choice = input("What would you like to do?\nA: Check your stats\nB: Pick your door\nC: Check your inventory\nYOUR CHOICE: ")
         if choice == "A":
-            print("You chose to check your stats")  #SKAPA FUNKTION SOM PRINTAR UT STATS (class Player)
+            print()
+            print("YOUR STATS:")  #SKAPA FUNKTION SOM PRINTAR UT STATS (class Player)
             player.print_info()
+            print()
         elif choice == "B":
-            print("You chose to pick a door")  #SKAPA FUNKTION SOM PRINTAR UT VAD MAN FICK BAKOM DÖRREN (class Scenarios)
-            door(player)   
+            print()
+            door(player)
+            if door.type(Player) == "Treasure":
+                print("You have found a treasure with a sword of strength {item.strength}")
+            elif door.type(Player) == "Trap":
+                print("You fell into a trap")
+            elif door.type(Player) == "Monster":
+                print("You have encountered a monster with the strength of {Monster.strength}")
         elif choice == "C":
-            print("You chose to check your inventory\n")  #SKAPA FUNKTION SOM PRINTAR UT INVENTORY (class Item)
-            print(player.inv, "\n")
+            print()
+            print("YOUR INVENTORY:\n--------------")  #SKAPA FUNKTION SOM PRINTAR UT INVENTORY (class Item)
+            print(player.inv)
+            print()
         else:
-            print("Please type either A, B or C")
+            print()
+            print("Please type either A, B or C\n")
 
 start_game()
