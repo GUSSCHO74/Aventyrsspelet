@@ -12,14 +12,6 @@ class Item():
         self.name = name
         self.strength = strength
 
-diamond_sword = Item("Diamond sword", 25)
-iron_sword = Item("Iron sword", 20)
-gold_sword = Item("Gold sword", 15)
-stone_sword = Item("Stone sword", 10)
-wooden_sword = Item("Wooden sword", 5)
-
-list_of_items = [diamond_sword, iron_sword, gold_sword, stone_sword, wooden_sword]
-
 def door(player):
     door_type = random.choice(["Treasure", "Trap", "Monster"]) 
     if door_type == "Treasure":
@@ -60,6 +52,14 @@ def door(player):
             print("You won the battle against the monster")
             print("Your level went up by one point")
             print()
+
+diamond_sword = Item("Diamond sword", 25)
+iron_sword = Item("Iron sword", 20)
+gold_sword = Item("Gold sword", 15)
+stone_sword = Item("Stone sword", 10)
+wooden_sword = Item("Wooden sword", 5)
+
+list_of_items = [diamond_sword, iron_sword, gold_sword, stone_sword, wooden_sword]
 
 def inv_check(player):
     for item in player.inv:
