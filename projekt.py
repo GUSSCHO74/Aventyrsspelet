@@ -6,6 +6,10 @@ class Player():
         self.hp =  hp
         self.strength = strength
         self.inv = inv
+    
+    def print_inventory(self):
+        for item in self.inv:
+            print(item.name)
    
 class Item():
     def __init__(self, name, strength):
@@ -25,7 +29,7 @@ def door(player):
             print("Your inventory is full, would you like to exchange it for one of your weakest sword?)")
             print()
             print("Your inventory right now:")
-            inv_check(player)
+            player.print_inventory()
             print()
             exchange = input("Type: Y/N (Y for Yes, N for No) ")
             if exchange == "Y": 
@@ -61,10 +65,6 @@ wooden_sword = Item("Wooden sword", 5)
 
 list_of_items = [diamond_sword, iron_sword, gold_sword, stone_sword, wooden_sword]
 
-def inv_check(player):
-    for item in player.inv:
-        print(item.name)
-
 def item_exchange(player):
     worst = Item("", 100)
     for item in player.inv:
@@ -88,7 +88,7 @@ def start_game():
         elif choice == "C":
             print()
             print("YOUR INVENTORY:\n--------------")  
-            inv_check(player)
+            player.print_inventory()
             print()
         else:
             print()
