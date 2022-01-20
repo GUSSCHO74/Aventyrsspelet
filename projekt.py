@@ -6,9 +6,6 @@ class Player():
         self.hp =  hp
         self.strength = strength
         self.inv = inv
-
-    def stats(self):
-        print(f"-----------------\nCurrent Level: {self.lvl}\nYour HP: {self.hp}\nStrength: {self.strength}\n-----------------")
    
 class Item():
     def __init__(self, name, strength):
@@ -29,13 +26,21 @@ def door(player):
         random_treasure = random.choice(list_of_items)
         print(f"You received a {random_treasure.name}.") 
         print(f"This item has a strength of {random_treasure.strength}.\n")
-        if len(Player.inv) < 5:
+        if len(player.inv) < 5:
             player.inv.append(random_treasure)
+            player.strength = player.strength + random_treasure.strength
         elif len(player.inv) >= 5:
-            exchange = print(input("Your inventory is full, would you like to exchange it for one of your weakest sword?\nType: Y/N (Y for Yes, N for No)"))
-            if exchange == "Y":  
-                player.inv.pop([4])
-            elif exchange == "N" or "n":  
+            print("Your inventory is full, would you like to exchange it for one of your weakest sword?)")
+            print()
+            print("Your inventory right now:")
+            inv_check(player)
+            print()
+            exchange = input("Type: Y/N (Y for Yes, N for No) ")
+            if exchange == "Y": 
+                item_exchange(player)
+                player.inv.append(random_treasure)
+                player.strength = player.strength + random_treasure.strength
+            elif exchange == "N":  
                 print("You left the treasure and countinued your journey")
             else:
                 print("You need to type Y or N (Y for Yes, N for No):\n")
@@ -45,7 +50,7 @@ def door(player):
         print("You encountered a trap")
         print(f"The trap dealt {trap_damage} damage\n")
     elif door_type == "Monster":
-        monster_strength = random.randint(20, 40)
+        monster_strength = random.randint(1, 90)
         print(f"The monster has a strength of {monster_strength}")
         if monster_strength > player.strength:
             player.hp = player.hp - 1
@@ -54,35 +59,46 @@ def door(player):
             player.lvl = player.lvl + 1
             print("You won the battle against the monster")
             print("Your level went up by one point")
+            print()
 
 def inv_check(player):
-    inv_list = []
-    for  in player.inv:
-        inv_list.append(list_of_items.name)
-    print(inv_list)
-    
-                
+    for item in player.inv:
+        print(item.name)
+
+def item_exchange(player):
+    worst = Item("", 100)
+    for item in player.inv:
+        if worst.strength > item.strength:
+            worst = item
+    player.inv.remove(worst)
+              
 def start_game():
-    player = Player(1,20,4,[])
+    player = Player(1,20,0,[])
     if player.lvl == 10:
         print("Congratulations, you won")
     while player.hp > 0: 
-        choice = input("What would you like to do?\nA: Check your stats\nB: Pick your door\nC: Check your inventory\nYOUR CHOICE: ")
+        choice = input("What would you like to do?\nA: Check your stats\nB: Pick your door\nC: Check your inventory\n\nYOUR CHOICE: ")
         if choice == "A":
             print()
             print("YOUR STATS:")  
-            player.stats()
-            print()
+            print(f"\nCurrent Level: {player.lvl}\nYour HP: {player.hp}\nStrength: {player.strength}\n")
         elif choice == "B":
             print()
             door(player)
         elif choice == "C":
             print()
             print("YOUR INVENTORY:\n--------------")  
-            print(inv_check)
+            inv_check(player)
             print()
         else:
             print()
             print("Please type either A, B or C\n")
+    else:
+        print("You died")
+        play_again = input("DO YOU WANT TO PLAY AGAIN? Y/N:\n ")
+        if play_again == "Y":
+            start_game()
+        else:
+            print("Fuck you!")  
 
 start_game()
